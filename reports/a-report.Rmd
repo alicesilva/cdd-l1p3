@@ -14,7 +14,7 @@ output:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
-library(gridExtra)
+library(ggbeeswarm)
 source(here::here("code/lib.R"))
 theme_set(theme_bw())
 options(scipen = 999)
@@ -53,13 +53,11 @@ glimpse(atividade_dep)
     scale_y_log10()
 ```
 
-<<<<<<< HEAD
 Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
 
-#Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
-=======
 No primeiro gráfico, percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não significa necessariamente no aumento de seguidores e vice-versa.
->>>>>>> 6f09085c03f0ea90f0af70dbe83a5f27e745a470
+
+#Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
 
 ```{r}
 engaj_mediano_partido = 
@@ -92,11 +90,21 @@ glimpse(camara_psl_psol)
 ```{r}
 camara_psl_psol %>%
   ggplot(mapping=aes(x=engaj_total, y=partido, color=partido))+
-  geom_jitter(alpha=0.6)
+  geom_jitter(alpha=0.75)
 ```
 
+#Os parlamentares do PSL e PSOL possuem maior nível de influência em tweets de próprio conteúdo ou em retweets?
+```{r}
+camara_psl_psol %>%
+  ggplot()+
+  geom_density(aes(x=camara_psl_psol$engaj_total_proprio, color='Engaj. total. Proprio'))+
+  geom_density(aes(x=camara_psl_psol$engaj_total_retweet, color='Engaj. total. Retweet'))+
+  labs(x='Engajamentos')+
+  scale_x_continuous()+
+  facet_wrap(~partido, ncol=1)
+```
 
-
+A partir do gráfico é possível perceber que nenhum dos partidos tem um engajamento total em tweets próprio ou retweet que ultrapassa 1000000, entretanto o PSOL possui uma concetração maior de engajamento em retweets. Já o PSL possui alguns pontos isolados de engajamento total em conteúdo próprio, e o PSOL tem uma certa constância em conteúdo prórprio. É possível perceber que o PSL não possui um engajamento total própio favorável, sendo um pouco mais expressivo em conteúdo de retweets.
 
 
 
