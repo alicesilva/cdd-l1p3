@@ -48,9 +48,10 @@ glimpse(atividade_dep)
     geom_point(stat = "identity", size = 2, aes())
 
   atividade_dep %>%
-    ggplot(aes(x = engaj_total, y = seguidores)) +
+    ggplot(aes(x = seguidores, y = engaj_total)) +
     geom_point(stat = "identity", size = 2, aes()) +
-    scale_x_log10()
+    scale_x_log10() +
+    scale_y_log10()
 ```
 
 # Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
