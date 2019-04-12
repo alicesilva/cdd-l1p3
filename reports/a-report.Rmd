@@ -24,14 +24,13 @@ options(scipen = 999)
 atividade = read_projectdata()
 glimpse(atividade)
 ```
+# Como é a relação entre o engajamento de cada parlamentar e o seu número de seguidores?
 
-# Desde o uso das novas tecnologias nas eleições americanas de 2008, o Twitter tem se tornado uma plataforma para as atividades políticas, criando um canal para a interação entre políticos e eleitores. A comunicação política com o uso de mídia social é parte das atividades congressistas nos dias atuais. Além disto, o Twitter se constitui como importante meio para o ganho de popularidade com fins eleitorais.
+Desde o uso das novas tecnologias nas eleições americanas de 2008, o Twitter tem se tornado uma plataforma para as atividades políticas, criando um canal para a interação entre políticos e eleitores. A comunicação política com o uso de mídia social é parte das atividades congressistas nos dias atuais. Além disto, o Twitter se constitui como importante meio para o ganho de popularidade com fins eleitorais.
 
-# O cenário político brasileiro não é diferente e, a cada dia, nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
+O cenário político brasileiro não é diferente e, a cada dia, nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
 
-# *Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
-
-##Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
+### *Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
 
 ```{r}
 atividade_dep = atividade %>%
@@ -41,7 +40,7 @@ glimpse(atividade_dep)
 
 ```
 
-# Como é a relação entre o engajamento de cada parlamentar e o seu número de seguidores?
+
 ```{r}
   atividade_dep %>%
     ggplot(aes(x = engaj_total, y = seguidores)) +
@@ -54,7 +53,9 @@ glimpse(atividade_dep)
     scale_y_log10()
 ```
 
-# Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
+Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
+
+#Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
 
 ```{r}
 engaj_mediano_partido = 
@@ -73,8 +74,9 @@ engaj_mediano_partido %>%
 
 ```
 
-##Os deputados que são filiados ao PSL e PSOL são ativos no twitter assim como o atual presidente da república?
+Considerando que o partido que possui maior poder de influência nas redes sociais é aquele que possui maior nível de engajamento, e evitando os pontos fora da curva, o que responde nossa pergunta é a mediana dos dos engajamentos_medianos de cada partido. Dessa forma poodemos perceber no gráfico que o PSOL e PSL estão bem a frente. O que difere do pensamento crítico do autor da questão, o qual imaginava PSOL, PT e PSDB. Importante ressaltar que o engajamento_mediano de cada partido é a mediana do engajamento de todos os seus parlamentares, que por sua vez são likes e retweets em seu conteúdo, ou seja aquele partido que possui maior engajamento mediano, é o partido que possui um número considerável de ações (likes/retweets emseu material).
 
+#O quão parlamentares que são filiados ao PSL(partido do atual presidente) e PSOL(partido rival) são ativos no twitter? 
 
 ```{r}
 camara_psl_psol = atividade %>%
@@ -84,17 +86,9 @@ camara_psl_psol = atividade %>%
 glimpse(camara_psl_psol)
 ```
 ```{r}
-grafico1 = camara_psl_psol %>%
-  filter(partido=="PSL") %>% 
-  ggplot(mapping = aes(x = engaj_total, y = nome_eleitoral)) +
-  geom_jitter()
-
-grafico2 = camara_psl_psol %>%
-  filter(partido=="PSOL") %>% 
-  ggplot(mapping = aes(x = engaj_total, y = nome_eleitoral)) +
-  geom_jitter()
-  
-grid.arrange(grafico1, grafico2, ncol=2)
+camara_psl_psol %>%
+  ggplot(mapping=aes(x=engaj_total, y=partido, color=partido))+
+  geom_jitter(alpha=0.6)
 ```
 
 
