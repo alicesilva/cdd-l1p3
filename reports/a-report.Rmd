@@ -44,11 +44,11 @@ glimpse(atividade_dep)
 # Como é a relação entre o engajamento de cada parlamentar e o seu número de seguidores?
 ```{r}
   atividade_dep %>%
-    ggplot(aes(x = engaj_total, y = seguidores)) +
-    geom_point(stat = "identity", size = 2, aes())
+    ggplot(aes(x = engaj_total, y = seguidores, color = partido)) +
+    geom_point(stat = "identity", size = 2)
 
   atividade_dep %>%
-    ggplot(aes(x = seguidores, y = engaj_total)) +
+    ggplot(aes(x = seguidores, y = engaj_total, color = partido)) +
     geom_point(stat = "identity", size = 2, aes()) +
     scale_x_log10() +
     scale_y_log10()
