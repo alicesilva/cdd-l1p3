@@ -14,8 +14,10 @@ output:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(gridExtra)
 source(here::here("code/lib.R"))
 theme_set(theme_bw())
+options(scipen = 999)
 ```
 
 ```{r read}
@@ -40,6 +42,30 @@ engaj_mediano_partido %>%
   labs(y='engajamento_mediano_do_partido', x= 'partidos')+
   coord_flip()
 
+```
+
+##Os deputados que são filiados ao PSL e PSOL são ativos no twitter assim como o atual presidente da república?
+
+
+```{r}
+camara_psl_psol = atividade %>%
+    filter(casa == "câmara") %>%
+  filter(partido == "PSL" | partido == "PSOL") %>%
+  filter(twitter != "NA")
+glimpse(camara_psl_psol)
+```
+```{r}
+grafico1 = camara_psl_psol %>%
+  filter(partido=="PSL") %>% 
+  ggplot(mapping = aes(x = engaj_total, y = nome_eleitoral)) +
+  geom_jitter()
+
+grafico2 = camara_psl_psol %>%
+  filter(partido=="PSOL") %>% 
+  ggplot(mapping = aes(x = engaj_total, y = nome_eleitoral)) +
+  geom_jitter()
+  
+grid.arrange(grafico1, grafico2, ncol=2)
 ```
 
 
