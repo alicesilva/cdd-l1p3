@@ -25,7 +25,35 @@ atividade = read_projectdata()
 glimpse(atividade)
 ```
 
+# Desde o uso das novas tecnologias nas eleições americanas de 2008, o Twitter tem se tornado uma plataforma para as atividades políticas, criando um canal para a interação entre políticos e eleitores. A comunicação política com o uso de mídia social é parte das atividades congressistas nos dias atuais. Além disto, o Twitter se constitui como importante meio para o ganho de popularidade com fins eleitorais.
+
+# O cenário político brasileiro não é diferente e, a cada dia, nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
+
+# *Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
+
 ##Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
+
+```{r}
+atividade_dep = atividade %>%
+                  na.omit(seguidores) %>% 
+                  filter(casa == "câmara")
+glimpse(atividade_dep)
+
+```
+
+# Como é a relação entre o engajamento de cada parlamentar e o seu número de seguidores?
+```{r}
+  atividade_dep %>%
+    ggplot(aes(x = engaj_total, y = seguidores)) +
+    geom_point(stat = "identity", size = 2, aes())
+
+  atividade_dep %>%
+    ggplot(aes(x = engaj_total, y = seguidores)) +
+    geom_point(stat = "identity", size = 2, aes()) +
+    scale_x_log10()
+```
+
+# Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
 
 ```{r}
 engaj_mediano_partido = 
