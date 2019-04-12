@@ -43,19 +43,23 @@ glimpse(atividade_dep)
 
 ```{r}
   atividade_dep %>%
-    ggplot(aes(x = engaj_total, y = seguidores)) +
-    geom_point(stat = "identity", size = 2, aes())
+    ggplot(aes(x = engaj_total, y = seguidores, color = partido)) +
+    geom_point(stat = "identity", size = 2)
 
   atividade_dep %>%
-    ggplot(aes(x = seguidores, y = engaj_total)) +
+    ggplot(aes(x = seguidores, y = engaj_total, color = partido)) +
     geom_point(stat = "identity", size = 2, aes()) +
     scale_x_log10() +
     scale_y_log10()
 ```
 
+<<<<<<< HEAD
 Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
 
 #Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, Quais são os partidos que possuem o maior poder de influência no twitter?
+=======
+No primeiro gráfico, percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não significa necessariamente no aumento de seguidores e vice-versa.
+>>>>>>> 6f09085c03f0ea90f0af70dbe83a5f27e745a470
 
 ```{r}
 engaj_mediano_partido = 
