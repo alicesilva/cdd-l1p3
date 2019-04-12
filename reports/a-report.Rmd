@@ -30,7 +30,7 @@ Desde o uso das novas tecnologias nas eleições americanas de 2008, o Twitter t
 
 O cenário político brasileiro não é diferente e, a cada dia, nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
 
-### *Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
+### Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
 
 ```{r}
 atividade_dep = atividade %>%
