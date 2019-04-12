@@ -54,7 +54,7 @@ glimpse(atividade_dep)
     scale_y_log10()
 ```
 
-# Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
+No primeiro gráfico, percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não significa necessariamente no aumento de seguidores e vice-versa.
 
 ```{r}
 engaj_mediano_partido = 
