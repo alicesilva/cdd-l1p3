@@ -85,22 +85,22 @@ engaj_mediano_partido %>%
 
 Considerando que o partido que possui maior poder de influência nas redes sociais é aquele que possui maior nível de engajamento, e evitando os pontos fora da curva, o que responde nossa pergunta é a mediana dos dos engajamentos_medianos de cada partido. Dessa forma poodemos perceber no gráfico que o PSOL e PSL estão bem a frente. O que difere do pensamento crítico do autor da questão, o qual imaginava PSOL, PT e PSDB. Importante ressaltar que o engajamento_mediano de cada partido é a mediana do engajamento de todos os seus parlamentares, que por sua vez são likes e retweets em seu conteúdo, ou seja aquele partido que possui maior engajamento mediano, é o partido que possui um número considerável de ações (likes/retweets emseu material).
 
-#O quão parlamentares da câmara que são filiados ao PSL(partido do atual presidente) e PSOL(partido rival) são ativos no twitter? 
+
+# O quão ativos no twitter são os deputados do PSL (governo) e do PSOL (oposição)? 
 
 ```{r}
-camara_psl_psol = atividade %>%
-    filter(casa == "câmara") %>%
+atividade_dep %>%
   filter(partido == "PSL" | partido == "PSOL") %>%
-  filter(twitter != "NA")
-glimpse(camara_psl_psol)
-```
-```{r}
-camara_psl_psol %>%
-  ggplot(mapping=aes(x=engaj_total, y=partido, color=partido))+
-  geom_jitter(alpha=0.75)
+  ggplot(aes(x = engaj_total,
+             y = partido,
+             color = partido))+
+  geom_jitter(alpha = 0.75,
+              size = 3) +
+  scale_x_log10()
 ```
 
-Considerando o número de likes mais retweets, de todos os tweets vistos para cada parlamentar, a fim de definir se os parlamentares da câmara são ativos ou não, podemos ver que no PSL existem uma grande quantidade de deputados que não são ativos no twitter e os que estão foram dessa parcela são muito ativos. Mesmo assim o engajamento por parte deles é muito pequeno em comparação ao número de deputados. No PSOL acontece o mesmo, boa parte deles possuem pouco engajamento e alguns deles são muito ativos. Comparando os dois partidos, a distribuição do PSOL é maior do que a do PSL, ou seja, o engajamento da maioria dos parlamentares do PSL são semelhantes entre si diferentemente do engajamento do parlamentares do PSOL.
+Para a análise, entendeu-se como atividade o engajamento total de cada parlamentar.
+Considerando a diferença entre o número de deputados dos dois partidos e a variação proporcional entre os pontos registrados, percebemos que os dois partidos possuem uma concentração maior de pontos à direita. Isto pode nos indicar uma certa semelhança de atuação para ambos. Entretanto, enquanto o PSOL possui apenas um deputado com engajamento abaixo de 100.000, o PSL possui um número expressivo de deputados abaixo deste valor. Portanto, o PSOL é mais ativo no twitter que o PSL.
 
 #Os parlamentares do PSL e PSOL possuem maior nível de influência em tweets de próprio conteúdo ou em retweets?
 ```{r}
