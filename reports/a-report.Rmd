@@ -24,36 +24,45 @@ options(scipen = 999)
 atividade = read_projectdata()
 glimpse(atividade)
 ```
+
 Desde o uso das novas tecnologias nas eleições americanas de 2008, o Twitter tem se tornado uma plataforma para as atividades políticas, criando um canal para a interação entre políticos e eleitores. A comunicação política com o uso de mídia social é parte das atividades congressistas nos dias atuais. Além disto, o Twitter se constitui como importante meio para o ganho de popularidade com fins eleitorais.
+O cenário político brasileiro não é diferente e a cada dia nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
 
-O cenário político brasileiro não é diferente e, a cada dia, nossos parlamentares estão mais ativos nas redes sociais. Com base nisto, este relatório se propõe a respoder algumas questões de curiosidade à população.
+OBS.: Deputados sem perfis ou com número de seguidores não registrados foram desconsiderados.
 
-# Como é a relação entre o engajamento de cada parlamentar e o seu número de seguidores?
+# Como é a relação entre o engajamento total de cada parlamentar e o seu número de seguidores?
 
 ```{r}
 atividade_dep = atividade %>%
                   na.omit(seguidores) %>% 
                   filter(casa == "câmara")
-glimpse(atividade_dep)
-
 ```
 
 
 ```{r}
   atividade_dep %>%
-    ggplot(aes(x = engaj_total, y = seguidores, color = partido)) +
-    geom_point(stat = "identity", size = 2)
-
-  atividade_dep %>%
-    ggplot(aes(x = seguidores, y = engaj_total, color = partido)) +
-    geom_point(stat = "identity", size = 2, aes()) +
+    ggplot(aes(x = seguidores,
+               y = engaj_total,
+               color = partido)) +
+    geom_point(stat = "identity",
+               size = 2) +
+    xlab("Número de seguidores") +
+    ylab("Engajamento total")
+ 
+ atividade_dep %>%
+    ggplot(aes(x = seguidores,
+               y = engaj_total,
+               color = partido)) +
+    geom_point(stat = "identity",
+               size = 2) +
     scale_x_log10() +
-    scale_y_log10()
+    scale_y_log10() +
+    xlab("Número de seguidores") +
+    ylab("Engajamento total")
 ```
 
-Percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não implica necessariamente no aumento de seguidores e vice-versa.
-
-No primeiro gráfico, percebe-se que não há uma linearidade nesta relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não significa necessariamente no aumento de seguidores e vice-versa.
+Com a escala linear, não fica claro um padrão que indique alguma relação. Há sim uma concentração considerável de deputados que possuem pouco engajamento e poucos seguidores, entretanto o aumento de engajamento não significa necessariamente o aumento de seguidores e vice-versa.
+Já com a escala logarítmica, que considera a distância proporcional entre os pontos, conseguimos uma melhor visão da distribuição dos pontos antes concentrados nos valores mais baixos. Agora verificamos um certo padrão que nos indica uma relação positiva entre o engajamento total e o número de seguidores dos parlamentares.
 
 #Levando em consideração os parlamentares e seus respectivos alcances em redes sociais, quais são os partidos que possuem o maior poder de influência no twitter?
 
