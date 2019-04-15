@@ -104,6 +104,12 @@ Considerando a diferença entre o número de deputados dos dois partidos e a var
 
 #Os parlamentares do PSL e PSOL possuem maior nível de influência em tweets de próprio conteúdo ou em retweets?
 ```{r}
+camara_psl_psol = atividade %>%
+    filter(casa == "câmara") %>%
+  filter(partido == "PSL" | partido == "PSOL") %>%
+  filter(twitter != "NA")
+glimpse(camara_psl_psol)
+
 camara_psl_psol %>%
   ggplot()+
   geom_density(aes(x=camara_psl_psol$engaj_total_proprio, color='Engaj. total. Proprio'))+
